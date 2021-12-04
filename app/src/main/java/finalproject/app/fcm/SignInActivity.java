@@ -7,23 +7,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +31,7 @@ import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
+import finalproject.app.fcm.util.PreferenceManager;
 
 public class SignInActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> goSignUp_Launcher;
@@ -44,12 +39,20 @@ public class SignInActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> goFindId_Launcher;
     ActivityResultLauncher<Intent> goFindPwd_Launcher;
     EditText id, pwd;
-    int resultCode;
+    String point;
+    int pointVal;
+    Context mContext;
+    CheckBox autoSignIn, saveIdAndPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        mContext = this;
+        autoSignIn = findViewById(R.id.autoLogin);
+        saveIdAndPwd = findViewById(R.id.rememberIdandPwd);
+        id = findViewById(R.id.signInId);
+        pwd = findViewById(R.id.signInPwd);
 
         goSignUp_Launcher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -65,7 +68,9 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-
+                            autoSignIn.setChecked(false);
+                            saveIdAndPwd.setChecked(false);
+                            PreferenceManager.clear(mContext);
                         }
                     }
                 });
@@ -87,6 +92,44 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     }
                 });
+        autoSignIn.setOnClickListener(view -> {
+            if(autoSignIn.isChecked()){
+                saveIdAndPwd.setChecked(true);
+                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
+            }else {
+                saveIdAndPwd.setChecked(false);
+                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
+                PreferenceManager.clear(mContext);
+            }
+        });
+        saveIdAndPwd.setOnClickListener(view -> {
+            if(saveIdAndPwd.isChecked()){
+                PreferenceManager.setString(mContext,"id",id.getText().toString());
+                PreferenceManager.setString(mContext,"pwd",pwd.getText().toString());
+                PreferenceManager.setBoolean(mContext,"saveIdAndPwd",saveIdAndPwd.isChecked());
+            }else {
+                PreferenceManager.setBoolean(mContext,"saveIdAndPwd",saveIdAndPwd.isChecked());
+                PreferenceManager.clear(mContext);
+            }
+        });
+        Boolean saveIdAndPwdCheck = PreferenceManager.getBoolean(mContext,"saveIdAndPwd");
+        if(saveIdAndPwdCheck){
+            id.setText(PreferenceManager.getString(mContext,"id"));
+            pwd.setText(PreferenceManager.getString(mContext,"pwd"));
+            saveIdAndPwd.setChecked(true);
+        }
+        Boolean autoSignInCheck = PreferenceManager.getBoolean(mContext,"autoSignIn");
+        if(autoSignInCheck){
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            String id = PreferenceManager.getString(mContext,"id");
+            String point = 0+"";
+            intent.putExtra("MemberId",id);
+            intent.putExtra("MemberPoint",point);
+            Log.d("signIn","Id:"+id+"Point:"+point);
+            autoSignIn.setChecked(true);
+            saveIdAndPwd.setChecked(true);
+            signIn_Launcher.launch(intent);
+        }
     }
 
     public void goSignUp(View v) {
@@ -104,27 +147,24 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    resultCode = signINHttp(signInInfo);
-                    if (resultCode == 1) {
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        signIn_Launcher.launch(intent);
-                    } else if (resultCode == 0) {
+                    pointVal = signINHttp(signInInfo);
+                    point = String.valueOf(pointVal);
+                    if (pointVal == 0) {
                         id.setText("");
                         pwd.setText("");
+                    } else {
+                        pointVal = 1;
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        intent.putExtra("MemberId",id.getText().toString());
+                        intent.putExtra("MemberPwd",pwd.getText().toString());
+                        intent.putExtra("MemberPoint",point);
+                        signIn_Launcher.launch(intent);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(resultCode==0){
-            toast("로그인 실패");
-        }
     }
     public void toast(String msg){
         Toast.makeText(this,msg+"",Toast.LENGTH_SHORT).show();
@@ -153,8 +193,8 @@ public class SignInActivity extends AppCompatActivity {
         HttpResponse response = client.execute(post);
         Log.d("signIn", "response StatusCode:" + response.getStatusLine().getStatusCode()); // response StatusCode: 200
         HttpEntity resEntity = response.getEntity();
-        int result = Integer.parseInt(EntityUtils.toString(resEntity));
-        Log.d("signIn",result+"");
-        return result;
+        int point = Integer.parseInt(EntityUtils.toString(resEntity));
+        Log.d("signIn",point+"");
+        return point;
     }
 }

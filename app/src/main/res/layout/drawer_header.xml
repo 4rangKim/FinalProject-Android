@@ -14,10 +14,143 @@
             android:layout_height="100dp"
             android:src="@drawable/logo"/>
         <TextView
+            android:id="@+id/signInMemberId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그인"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:layout_gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#434343"
+        android:orientation="vertical"
+        android:elevation="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#434343"
+            android:elevation="10dp"
+            android:clipToPadding="false"
+            android:paddingBottom="5dp"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp">
+                <ImageView
+                    android:id="@+id/pointImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/point" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="내 포인트 :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_margin="1dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/pointVal"
+                    android:hint="point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="p"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center|right" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/goCharge"
+                    android:onClick="goCharge"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:text="충전"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="#f7c873"
+                    android:background="@drawable/btn1"
+                    android:layout_marginRight="20dp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#434343"
+            android:elevation="10dp"
+            android:clipToPadding="false"
+            android:paddingBottom="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp">
+                <ImageView
+                    android:id="@+id/carImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/car" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="내 자동차"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_margin="1dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:onClick="myCarMenu"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:text="조회"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:textColor="#f7c873"
+                    android:background="@drawable/btn1"
+                    android:layout_marginRight="20dp" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
