@@ -50,11 +50,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:layout_marginBottom="25dp"/>
             <ImageView
+                android:onClick="goAddCarPage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/add_btn"
                 android:layout_alignParentRight="true"/>
             <Button
+                android:onClick="goAddCarPage"
                 android:id="@+id/plusCar"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

@@ -16,6 +16,7 @@ public class PreferenceManager {
     private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
+    
     /**
      * String 값 저장
      * @param context

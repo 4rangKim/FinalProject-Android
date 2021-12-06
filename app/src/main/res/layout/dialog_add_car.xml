@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#434343"
+    android:elevation="10dp"
+    android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="신규 차량 등록"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginBottom="25dp"/>
+            <ImageButton
+                android:id="@+id/addCarMenuCloseBtn"
+                android:layout_weight="10"
+                android:layout_gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close"
+                android:background="#434343"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="차량 번호"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="3dp"/>
+            <EditText
+                android:id="@+id/newCarNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" 등록하실 차량의 번호를 입력해주세요.  " />
+            <Button
+                android:id="@+id/addCarBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="등록하기"
+                android:textColor="#f7c873"
+                android:layout_margin="25dp"
+                android:onClick="findId"
+                android:background="@drawable/btn1"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

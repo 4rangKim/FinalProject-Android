@@ -31,6 +31,7 @@ import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
+
 import finalproject.app.fcm.util.PreferenceManager;
 
 public class SignInActivity extends AppCompatActivity {
@@ -141,30 +142,36 @@ public class SignInActivity extends AppCompatActivity {
         List<String> signInInfo = new ArrayList<String>();
         id = findViewById(R.id.signInId);
         pwd = findViewById(R.id.signInPwd);
-        signInInfo.add(id.getText().toString());
-        signInInfo.add(pwd.getText().toString());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    pointVal = signINHttp(signInInfo);
-                    point = String.valueOf(pointVal);
-                    if (pointVal == 0) {
-                        id.setText("");
-                        pwd.setText("");
-                    } else {
-                        pointVal = 1;
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        intent.putExtra("MemberId",id.getText().toString());
-                        intent.putExtra("MemberPwd",pwd.getText().toString());
-                        intent.putExtra("MemberPoint",point);
-                        signIn_Launcher.launch(intent);
+        String idval = id.getText().toString();
+        String pwdval = pwd.getText().toString();
+        if(idval!=null&pwdval!=null){
+            signInInfo.add(idval);
+            signInInfo.add(pwdval);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        pointVal = signINHttp(signInInfo);
+                        point = String.valueOf(pointVal);
+                        if (pointVal == 0) {
+                            id.setText("");
+                            pwd.setText("");
+                        } else {
+                            pointVal = 1;
+                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            intent.putExtra("MemberId",id.getText().toString());
+                            intent.putExtra("MemberPwd",pwd.getText().toString());
+                            intent.putExtra("MemberPoint",point);
+                            signIn_Launcher.launch(intent);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
-        }).start();
+            }).start();
+        }else {
+            toast("아이디와 비밀번호를 확인해 주세요.");
+        }
     }
     public void toast(String msg){
         Toast.makeText(this,msg+"",Toast.LENGTH_SHORT).show();

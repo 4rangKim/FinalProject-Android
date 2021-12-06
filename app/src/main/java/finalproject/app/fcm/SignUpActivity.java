@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -50,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText id, pwd, name, tel, carNum, idVal;
     TextView idDoubleCheck;
     Handler handler;
+    boolean doubleCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void run() {
                                 idDoubleCheck.setText("사용가능한 아이디 입니다.");
                                 idDoubleCheck.setTextColor(getResources().getColor(R.color.yellow));
+                                doubleCheck = true;
                             }
                         });
                     }else {
@@ -94,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 idVal.setText("");
                                 idVal.setHintTextColor(getResources().getColor(R.color.red));
                                 idVal.setHint("사용할 수 없는 아이디 입니다.");
+                                doubleCheck = false;
                             }
                         });
                     }
@@ -109,24 +113,38 @@ public class SignUpActivity extends AppCompatActivity {
         name = findViewById(R.id.memberName);
         tel = findViewById(R.id.memberPhone);
         carNum = findViewById(R.id.carNumber);
-        List<String> memberInfo = new ArrayList<String>();
-        memberInfo.add(id.getText().toString());
-        memberInfo.add(pwd.getText().toString());
-        memberInfo.add(name.getText().toString());
-        memberInfo.add(tel.getText().toString());
-        memberInfo.add(carNum.getText().toString());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    signUPHttp(memberInfo);
-                } catch (IOException e) {
-                    e.printStackTrace();
+        String idVal = id.getText().toString();
+        String pwdVal = pwd.getText().toString();
+        String nameVal = name.getText().toString();
+        String telVal = tel.getText().toString();
+        String carNumVal = carNum.getText().toString();
+        if(doubleCheck==false){
+            toast("아이디 중복확인을 해주세요.");
+        }if(idVal!=null & pwdVal!=null & nameVal!=null & telVal!=null & carNumVal!=null){
+            List<String> memberInfo = new ArrayList<String>();
+            memberInfo.add(idVal);
+            memberInfo.add(pwdVal);
+            memberInfo.add(nameVal);
+            memberInfo.add(telVal);
+            memberInfo.add(carNumVal);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        signUPHttp(memberInfo);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-        signUp_Launcher.launch(intent);
+            }).start();
+            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            signUp_Launcher.launch(intent);
+        }else {
+            toast("가입 정보를 확인해 주세요.");
+        }
+    }
+    public void toast(String msg){
+        Toast.makeText(this,msg+"",Toast.LENGTH_SHORT).show();
     }
     public void signUPHttp(List<String> memberInfo) throws IOException {
         HttpClient client = new DefaultHttpClient();
@@ -163,4 +181,5 @@ public class SignUpActivity extends AppCompatActivity {
         Log.d("signUp",result+"");
         return result;
     }
+
 }
