@@ -61,13 +61,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="아이디/비밀번호 기억하기"/>
-                <CheckBox
+                <!--<CheckBox
                     android:id="@+id/autoLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="자동 로그인"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"/>-->
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout

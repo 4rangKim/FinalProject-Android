@@ -36,7 +36,7 @@
         </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
             <TextView
@@ -46,6 +46,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:gravity="center"
                 android:layout_marginTop="20dp"/>
+            <View
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"
+                android:layout_width="160dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="#ffffff"/>
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

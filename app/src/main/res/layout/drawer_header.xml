@@ -8,11 +8,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/btn3"
+            android:layout_margin="10dp">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/logo_content"
+                android:layout_margin="10dp"
+                android:onClick="goMyPage"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/signInMemberId"
             android:layout_width="wrap_content"

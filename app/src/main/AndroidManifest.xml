@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyCarListActivity"></activity>
+        <activity android:name=".PayResultActivity"></activity>
+        <activity android:name=".PayListActivity" />
+        <activity android:name=".MyCarListActivity" />
         <activity android:name=".ChargeActivity" />
         <activity android:name=".FindPwdActivity" />
         <activity android:name=".FindIdActivity" />

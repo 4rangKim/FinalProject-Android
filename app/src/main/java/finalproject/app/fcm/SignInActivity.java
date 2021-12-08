@@ -16,6 +16,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -33,37 +37,31 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
 import finalproject.app.fcm.util.PreferenceManager;
+import finalproject.app.fcm.vo.MemberVO;
 
 public class SignInActivity extends AppCompatActivity {
-    ActivityResultLauncher<Intent> goSignUp_Launcher;
     ActivityResultLauncher<Intent> signIn_Launcher;
-    ActivityResultLauncher<Intent> goFindId_Launcher;
-    ActivityResultLauncher<Intent> goFindPwd_Launcher;
     EditText id, pwd;
     String point;
-    int pointVal;
+    int resultCode;
     Context mContext;
     CheckBox autoSignIn, saveIdAndPwd;
+    MemberVO User;
+    JSONObject Info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         mContext = this;
-        autoSignIn = findViewById(R.id.autoLogin);
+        int resultCode = 0;
+        MemberVO User = null;
+        JSONObject Info = null;
+        // autoSignIn = findViewById(R.id.autoLogin);
         saveIdAndPwd = findViewById(R.id.rememberIdandPwd);
         id = findViewById(R.id.signInId);
         pwd = findViewById(R.id.signInPwd);
 
-        goSignUp_Launcher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-
-                        }
-                    }
-                });
         signIn_Launcher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -75,42 +73,18 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     }
                 });
-        goFindId_Launcher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
 
-                        }
-                    }
-                });
-        goFindPwd_Launcher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-
-                        }
-                    }
-                });
-        autoSignIn.setOnClickListener(view -> {
-            if(autoSignIn.isChecked()){
-                saveIdAndPwd.setChecked(true);
-                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
-            }else {
-                saveIdAndPwd.setChecked(false);
-                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
-                PreferenceManager.clear(mContext);
-            }
-        });
+        /* save Id And Pwd */
         saveIdAndPwd.setOnClickListener(view -> {
             if(saveIdAndPwd.isChecked()){
                 PreferenceManager.setString(mContext,"id",id.getText().toString());
                 PreferenceManager.setString(mContext,"pwd",pwd.getText().toString());
                 PreferenceManager.setBoolean(mContext,"saveIdAndPwd",saveIdAndPwd.isChecked());
+                Log.d("signIn","saveIdAndPwd: "+PreferenceManager.getBoolean(mContext,"saveIdAndPwd")+", (id="+PreferenceManager.getString(mContext,"id")+", pwd="+PreferenceManager.getString(mContext,"pwd")+")");
             }else {
                 PreferenceManager.setBoolean(mContext,"saveIdAndPwd",saveIdAndPwd.isChecked());
                 PreferenceManager.clear(mContext);
+                Log.d("signIn","saveIdAndPwd: "+PreferenceManager.getBoolean(mContext,"saveIdAndPwd"));
             }
         });
         Boolean saveIdAndPwdCheck = PreferenceManager.getBoolean(mContext,"saveIdAndPwd");
@@ -119,25 +93,68 @@ public class SignInActivity extends AppCompatActivity {
             pwd.setText(PreferenceManager.getString(mContext,"pwd"));
             saveIdAndPwd.setChecked(true);
         }
+
+        /* Auto Sign In *//*
+        autoSignIn.setOnClickListener(view -> {
+            if(autoSignIn.isChecked()){
+                saveIdAndPwd.setChecked(true);
+                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
+                Log.d("signIn","saveIdAndPwd: "+PreferenceManager.getBoolean(mContext,"autoSignIn")+", (id="+PreferenceManager.getString(mContext,"id")+", pwd="+PreferenceManager.getString(mContext,"pwd")+")");
+            }else {
+                saveIdAndPwd.setChecked(false);
+                PreferenceManager.setBoolean(mContext,"autoSignIn",saveIdAndPwd.isChecked());
+                Log.d("signIn","saveIdAndPwd: "+PreferenceManager.getBoolean(mContext,"autoSignIn"));
+                PreferenceManager.clear(mContext);
+            }
+        });
         Boolean autoSignInCheck = PreferenceManager.getBoolean(mContext,"autoSignIn");
         if(autoSignInCheck){
-            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-            String id = PreferenceManager.getString(mContext,"id");
-            String point = 0+"";
-            intent.putExtra("MemberId",id);
-            intent.putExtra("MemberPoint",point);
-            Log.d("signIn","Id:"+id+"Point:"+point);
-            autoSignIn.setChecked(true);
-            saveIdAndPwd.setChecked(true);
-            signIn_Launcher.launch(intent);
-        }
+            List<String> signInInfo = new ArrayList<String>();
+            signInInfo.add(PreferenceManager.getString(mContext,"id"));
+            signInInfo.add(PreferenceManager.getString(mContext,"pwd"));
+            try {
+                resultCode = signINHttp(signInInfo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(resultCode==0){
+                id.setText("");
+                pwd.setText("");
+                toast("자동 로그인에 실패했습니다.");
+            }else if (resultCode==1){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (signINHttp(signInInfo)==0) {
+                                id.setText("");
+                                pwd.setText("");
+                            } else {
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                intent.putExtra("MemberId", User.getMem_id());
+                                intent.putExtra("MemberPwd", User.getMem_pwd());
+                                intent.putExtra("MemberName", User.getMem_name());
+                                intent.putExtra("MemberTel", User.getMem_tel() + "");
+                                intent.putExtra("MemberPoint", User.getMem_money() + "");
+                                intent.putExtra("MemberCar1", User.getMem_car1());
+                                intent.putExtra("MemberCar2", User.getMem_car2());
+                                Log.d("signIn", "User: " + User.toString());
+                                autoSignIn.setChecked(true);
+                                saveIdAndPwd.setChecked(true);
+                                signIn_Launcher.launch(intent);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        }*/
     }
-
     public void goSignUp(View v) {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-        goSignUp_Launcher.launch(intent);
+        startActivity(intent);
     }
-
     public void signIn(View v) {
         List<String> signInInfo = new ArrayList<String>();
         id = findViewById(R.id.signInId);
@@ -151,17 +168,21 @@ public class SignInActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        pointVal = signINHttp(signInInfo);
-                        point = String.valueOf(pointVal);
-                        if (pointVal == 0) {
+                        resultCode = signINHttp(signInInfo);
+                        if (resultCode==0) {
                             id.setText("");
                             pwd.setText("");
                         } else {
-                            pointVal = 1;
+                            resultCode = 1;
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            intent.putExtra("MemberId",id.getText().toString());
-                            intent.putExtra("MemberPwd",pwd.getText().toString());
-                            intent.putExtra("MemberPoint",point);
+                            intent.putExtra("MemberId",User.getMem_id());
+                            intent.putExtra("MemberPwd",User.getMem_pwd());
+                            intent.putExtra("MemberName",User.getMem_name());
+                            intent.putExtra("MemberTel",User.getMem_tel()+"");
+                            intent.putExtra("MemberPoint",User.getMem_money()+"");
+                            intent.putExtra("MemberCar1",User.getMem_car1());
+                            intent.putExtra("MemberCar2",User.getMem_car2());
+                            Log.d("signIn","User: "+User.toString());
                             signIn_Launcher.launch(intent);
                         }
                     } catch (IOException e) {
@@ -178,12 +199,12 @@ public class SignInActivity extends AppCompatActivity {
     }
     public void goFindId(View v) {
         Intent intent = new Intent(SignInActivity.this, FindIdActivity.class);
-        goFindId_Launcher.launch(intent);
+        startActivity(intent);
     }
 
     public void goFindPwd(View v) {
         Intent intent = new Intent(SignInActivity.this, FindPwdActivity.class);
-        goFindPwd_Launcher.launch(intent);
+        startActivity(intent);
     }
 
     public int signINHttp(List<String> signInInfo) throws IOException {
@@ -200,8 +221,27 @@ public class SignInActivity extends AppCompatActivity {
         HttpResponse response = client.execute(post);
         Log.d("signIn", "response StatusCode:" + response.getStatusLine().getStatusCode()); // response StatusCode: 200
         HttpEntity resEntity = response.getEntity();
-        int point = Integer.parseInt(EntityUtils.toString(resEntity));
-        Log.d("signIn",point+"");
-        return point;
+        String ResultInfo = EntityUtils.toString(resEntity);
+        if(!ResultInfo.equals("null")){
+            Log.d("signIn", point + "");
+            try {
+                JSONArray UserInfo = new JSONArray(ResultInfo);
+                Info = UserInfo.getJSONObject(0);
+                String mem_id = Info.getString("mem_id");
+                String mem_pwd = Info.getString("mem_pwd");
+                String mem_name = Info.getString("mem_name");
+                String mem_tel = Info.getString("mem_tel");
+                String mem_money = Info.getString("mem_money");
+                String mem_car1 = Info.getString("mem_car1");
+                String mem_car2 = Info.getString("mem_car2");
+                Log.d("signIn",mem_id+", "+mem_pwd+", "+mem_name+", "+mem_tel+", "+mem_money+", "+mem_car1+", "+mem_car2);
+                User = new MemberVO(mem_id, mem_pwd, mem_name, Integer.parseInt(mem_tel), Integer.parseInt(mem_money), mem_car1, mem_car2);
+                Log.d("signIn",User.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        }
+        return 0;
     }
 }

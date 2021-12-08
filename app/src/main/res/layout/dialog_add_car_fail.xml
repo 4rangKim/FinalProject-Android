@@ -20,17 +20,9 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="신규 차량 등록"
+                android:text="신규 차량 등록 실패"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_marginBottom="25dp"/>
-            <ImageButton
-                android:id="@+id/addCarMenuCloseBtn"
-                android:layout_weight="10"
-                android:layout_gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/close"
-                android:background="#434343"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,21 +32,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="차량 번호"
+                android:text="차량은 2개까지 등록이 가능합니다."
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginBottom="5dp"
                 android:paddingLeft="3dp"/>
-            <EditText
-                android:id="@+id/newCarNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 차량의 번호를 입력해주세요.  " />
             <Button
-                android:id="@+id/addCarBtn"
+                android:id="@+id/addCarFailOk"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="확인"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="등록하기"
                 android:textColor="#f7c873"
                 android:layout_margin="25dp"
                 android:onClick="findId"

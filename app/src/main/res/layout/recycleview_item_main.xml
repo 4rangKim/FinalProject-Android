@@ -32,31 +32,22 @@
             android:orientation="horizontal"
             android:gravity="right|center">
             <TextView
-                android:id="@+id/parkingLotOccupiedState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="사용중인 자리"
+                android:text="사용가능한 자리 :"
                 android:layout_marginRight="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:maxLines="1"/>
             <TextView
+                android:id="@+id/parkingLotEmptyState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="/"
-                android:layout_marginRight="10dp"
+                android:text="빈자리"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:maxLines="1"/>
-            <TextView
-                android:id="@+id/parkingLotTotalState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="전체 자리"
-                android:layout_marginRight="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:layout_marginRight="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <!-- line -->

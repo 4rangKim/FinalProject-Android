@@ -39,13 +39,12 @@ public class ChargeActivity extends AppCompatActivity {
         myPoint = findViewById(R.id.myPoint);
         chargePoint = findViewById(R.id.newPoint);
         myPoint.setText(pointVal);
-        Log.d("charge","ID:"+id);
-        Log.d("charge","pointVal:"+pointVal);
+        Log.d("charge","ID:"+id+", point:"+pointVal);
     }
     public void goMain(View v){
         String point = myPoint.getText().toString();
         Intent intent3 = new Intent(getApplicationContext(), MainActivity.class);
-        intent3.putExtra("MemberPoint2", point);
+        intent3.putExtra("MemberPoint", point);
         finish();
     }
     public void charge(View v){
@@ -54,10 +53,10 @@ public class ChargeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String pointVal2 = chargeHttp(id,point);
+                    String pointResult = chargeHttp(id,point);
                     Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-                    intent2.putExtra("MemberPoint2", pointVal2);
-                    Log.d("charge","MemberPoint2:"+pointVal2);
+                    intent2.putExtra("MemberPoint", pointResult);
+                    Log.d("charge","MemberPoint:"+pointResult);
                     setResult(RESULT_OK, intent2);
                     finish();
                 } catch (IOException e) {
@@ -75,7 +74,6 @@ public class ChargeActivity extends AppCompatActivity {
             chargeInfo.add(new BasicNameValuePair("id", URLDecoder.decode(id, "UTF-8")));
             chargeInfo.add(new BasicNameValuePair("point", URLDecoder.decode(point, "UTF-8")));
             post.setEntity(new UrlEncodedFormEntity(chargeInfo, "UTF-8"));
-            Log.d("charge",chargeInfo.toString()+"");
         } catch (UnsupportedEncodingException ex) {
             Log.e("charge", ex.toString());
         }
