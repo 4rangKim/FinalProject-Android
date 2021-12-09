@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="finalproject.app.fcm">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="finalProject.app.fcm">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/my_backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".PayResultActivity"></activity>
-        <activity android:name=".PayListActivity" />
-        <activity android:name=".MyCarListActivity" />
-        <activity android:name=".ChargeActivity" />
-        <activity android:name=".FindPwdActivity" />
-        <activity android:name=".FindIdActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".SubActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LogoActivity">
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="false"
+        tools:targetApi="m">
+        <activity android:name="finalProject.app.fcm.PayResultActivity"/>
+        <activity android:name="finalProject.app.fcm.PayListActivity" />
+        <activity android:name="finalProject.app.fcm.MyCarListActivity" />
+        <activity android:name="finalProject.app.fcm.ChargeActivity" />
+        <activity android:name="finalProject.app.fcm.FindPwdActivity" />
+        <activity android:name="finalProject.app.fcm.FindIdActivity" />
+        <activity android:name="finalProject.app.fcm.UserActivity" />
+        <activity android:name="finalProject.app.fcm.SubActivity" />
+        <activity android:name="finalProject.app.fcm.SignInActivity" />
+        <activity android:name="finalProject.app.fcm.SignUpActivity" />
+        <activity android:name="finalProject.app.fcm.MainActivity" />
+        <activity android:name="finalProject.app.fcm.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

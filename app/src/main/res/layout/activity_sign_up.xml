@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,13 +25,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginTop="5dp"
-            android:gravity="right">
+            android:gravity="right"
+            tools:ignore="RtlHardcoded">
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:src="@drawable/logo_text"/>
+                android:src="@drawable/logo_text"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
     </LinearLayout>
     <ScrollView
@@ -40,7 +41,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="회원가입"
+                    android:text="@string/sign_up_activity_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:layout_marginBottom="25dp"/>
                 <LinearLayout
@@ -63,10 +64,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="아이디"
+                        android:text="@string/sign_up_activity_content_id"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -77,13 +79,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:hint="아이디"
-                            android:inputType="text"/>
+                            android:hint="@string/sign_up_activity_content_id_hint"
+                            android:inputType="text"
+                            android:autofillHints="id"/>
                         <Button
                             android:id="@+id/DoubleCheck"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="중복확인"
+                            android:text="@string/sign_up_activity_content_double_check_btn"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:layout_weight="2"
                             android:onClick="DoubleCheck"/>
@@ -96,80 +99,90 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="비밀번호"
+                        android:text="@string/sign_up_activity_content_pwd"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <EditText
                         android:id="@+id/memberPwd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="비밀번호"
-                        android:inputType="textPassword"/>
+                        android:hint="@string/sign_up_activity_content_pwd_hint"
+                        android:inputType="textPassword"
+                        android:autofillHints="pwd"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="비밀번호 재입력"
+                        android:text="@string/sign_up_activity_content_re_pwd"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <EditText
                         android:id="@+id/pwdCheck"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="비밀번호 재입력"
-                        android:inputType="textPassword"/>
+                        android:hint="@string/sign_up_activity_content_re_pwd_hint"
+                        android:inputType="textPassword"
+                        android:autofillHints="rePwd"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="이름"
+                        android:text="@string/sign_up_activity_content_name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <EditText
                         android:id="@+id/memberName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="실명을 입력하세요"
-                        android:inputType="textPersonName"/>
+                        android:hint="@string/sign_up_activity_content_name_hint"
+                        android:inputType="textPersonName"
+                        android:autofillHints="name"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="휴대폰 번호"
+                        android:text="@string/sign_up_activity_content_phone"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <EditText
                         android:id="@+id/memberPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="'-'구분없이 입력"
-                        android:inputType="phone"/>
+                        android:hint="@string/sign_up_activity_content_phone_hint"
+                        android:inputType="phone"
+                        android:autofillHints="phone"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="차량 번호"
+                        android:text="@string/sign_up_activity_content_car_number"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="3dp"/>
+                        android:paddingStart="3dp"
+                        tools:ignore="RtlSymmetry" />
                     <EditText
-                        android:id="@+id/carNumber"
+                        android:id="@+id/carNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:inputType="text"
-                        android:hint="차량의 번호를 입력하세요."/>
+                        android:hint="@string/sign_up_activity_content_car_number_hint"
+                        android:autofillHints="carNum"/>
                 </LinearLayout>
                 </LinearLayout>
             <Button
                 android:id="@+id/signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="가입하기"
+                android:text="@string/sign_up_activity_content_sign_up_btn"
                 android:textColor="#f7c873"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"

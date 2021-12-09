@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -7,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:baselineAligned="false">
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -21,11 +23,11 @@
                 android:id="@+id/payListCarNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="차 번호"
+                android:text="@string/my_pay_list_recycle_view_item_car_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </LinearLayout>
         <LinearLayout
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -37,18 +39,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
                 <TextView
+                    android:layout_marginStart="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/payListCost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="결제 금액"
+                    android:text="@string/my_pay_list_recycle_view_item_amount_val"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 원"
+                    android:text="@string/my_pay_list_recycle_view_item_amount_val_unit"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -65,20 +69,20 @@
             android:id="@+id/payListInTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="입차 시간"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:text="@string/my_pay_list_recycle_view_item_in_time"
+            android:textSize="12sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" ~ "
+            android:text="@string/my_pay_list_recycle_view_item_time"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/payListOutTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="출차 시간"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:text="@string/my_pay_list_recycle_view_item_out_time"
+            android:textSize="12sp"/>
     </LinearLayout>
     <!-- line -->
     <View

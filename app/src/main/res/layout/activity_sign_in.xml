@@ -12,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp"
+        tools:ignore="UselessParent">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/logo"
+            android:contentDescription="@string/string_image_fail"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,22 +28,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="아이디"
+                android:text="@string/sign_in_activity_content_id"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginBottom="5dp"
-                android:paddingLeft="3dp"/>
+                android:paddingStart="3dp"
+                tools:ignore="RtlSymmetry" />
             <EditText
                 android:id="@+id/signInId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="아이디를 입력하세요."
-                android:inputType="text"/>
+                android:hint="@string/sign_in_activity_content_id_hint"
+                android:inputType="text"
+                android:autofillHints="signInId"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="비밀번호"
+                android:text="@string/sign_in_activity_content_pwd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:paddingLeft="3dp"/>
+                android:paddingStart="3dp"
+                tools:ignore="RtlSymmetry" />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,16 +56,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="비밀번호를 입력하세요."/>
+                    android:hint="@string/sign_in_activity_content_pwd_hint"
+                    android:autofillHints="signInPwd"/>
             </com.google.android.material.textfield.TextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <CheckBox
-                    android:id="@+id/rememberIdandPwd"
+                    android:id="@+id/rememberIdAndPwd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아이디/비밀번호 기억하기"/>
+                    android:text="@string/sign_in_activity_content_remember_id_and_pwd_check"/>
                 <!--<CheckBox
                     android:id="@+id/autoLogin"
                     android:layout_width="wrap_content"
@@ -85,18 +91,26 @@
                     android:id="@+id/goSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="회원가입"
+                    android:text="@string/sign_in_activity_content_go_sign_up_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_weight="1"
-                    android:onClick="goSignUp"/>
+                    android:onClick="goSignUp"
+                    android:background="@drawable/btn3"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
                 <Button
                     android:id="@+id/signIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="로그인"
+                    android:text="@string/sign_in_activity_content_sign_in_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:layout_weight="1"
-                    android:onClick="signIn"/>
+                    android:onClick="signIn"
+                    android:background="@drawable/btn3"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -107,24 +121,27 @@
                     android:id="@+id/findId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="아이디 찾기"
+                    android:text="@string/sign_in_activity_content_go_find_id_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:backgroundTint="#434343"
                     android:background="#434343"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:onClick="goFindId"/>
+                    android:onClick="goFindId"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_marginEnd="15dp"/>
                 <Button
                     android:id="@+id/findPwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호 찾기"
+                    android:text="@string/sign_in_activity_content_go_find_pwd_btn"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:backgroundTint="#434343"
                     android:background="#434343"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:onClick="goFindPwd"/>
+                    android:onClick="goFindPwd"
+                    style="?android:attr/buttonBarButtonStyle" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

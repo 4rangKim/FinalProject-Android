@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
         <LinearLayout
             android:layout_weight="2"
             android:layout_width="match_parent"
@@ -19,8 +20,9 @@
                 android:id="@+id/myCarImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/paringlot_icon"
-                android:background="@drawable/btn1" />
+                android:src="@drawable/paring_lot_icon"
+                android:background="@drawable/btn1"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -31,7 +33,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="차량 번호 : "
+                android:text="@string/my_car_recycle_view_item_car_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"/>
             <TextView
@@ -39,10 +41,10 @@
                 android:id="@+id/myCarNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="num"
+                android:text="@string/my_car_recycle_view_item_car_number_value"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <!-- line -->

@@ -20,15 +20,23 @@
                 android:layout_height="80dp"
                 android:src="@drawable/logo_content"
                 android:layout_margin="10dp"
-                android:onClick="goMyPage"/>
+                android:onClick="goMyPage"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
         <TextView
             android:id="@+id/signInMemberId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인"
+            android:text="@string/main_drawer_header_content_user_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_drawer_header_content_user_name_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,21 +59,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
+                android:layout_marginStart="10dp">
                 <ImageView
                     android:id="@+id/pointImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/point" />
+                    android:src="@drawable/point"
+                    android:contentDescription="@string/string_image_fail"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="내 포인트 :"
+                android:text="@string/main_drawer_header_content_user_point"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -77,19 +86,19 @@
                 android:layout_gravity="center">
                 <TextView
                     android:id="@+id/pointVal"
-                    android:hint="point"
+                    android:hint="@string/main_drawer_header_content_user_point_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="5dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="p"
+                    android:text="@string/main_drawer_header_content_user_point_value_unit"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center|right" />
+                    android:layout_marginStart="10dp"
+                    android:gravity="center|end" />
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -97,15 +106,15 @@
                 <Button
                     android:id="@+id/goCharge"
                     android:onClick="goCharge"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    android:text="충전"
-                    android:textSize="15dp"
+                    android:text="@string/main_drawer_header_content_go_charge_point_btn"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#f7c873"
                     android:background="@drawable/btn1"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginEnd="20dp" />
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -120,45 +129,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="10dp">
+                android:layout_marginStart="10dp">
                 <ImageView
                     android:id="@+id/carImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/car" />
+                    android:src="@drawable/car"
+                    android:contentDescription="@string/string_image_fail"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="내 자동차"
+                android:text="@string/main_drawer_header_content_user_car"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:layout_margin="1dp"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center">
-            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
                     android:onClick="myCarMenu"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    android:text="조회"
-                    android:textSize="15dp"
+                    android:text="@string/main_drawer_header_content_go_my_car_list"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#f7c873"
                     android:background="@drawable/btn1"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginEnd="20dp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

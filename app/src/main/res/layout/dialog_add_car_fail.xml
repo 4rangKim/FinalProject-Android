@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,16 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        tools:ignore="UselessParent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="신규 차량 등록 실패"
+                android:text="@string/add_car_fail_dialog_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_marginBottom="25dp"/>
         </LinearLayout>
@@ -32,19 +34,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="차량은 2개까지 등록이 가능합니다."
+                android:text="@string/add_car_fail_dialog_content_string"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginBottom="5dp"
-                android:paddingLeft="3dp"/>
+                android:paddingStart="3dp"
+                tools:ignore="RtlSymmetry" />
             <Button
                 android:id="@+id/addCarFailOk"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="확인"
+                android:text="@string/add_car_fail_dialog_content_ok_btn"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:textColor="#f7c873"
                 android:layout_margin="25dp"
-                android:onClick="findId"
                 android:background="@drawable/btn1"/>
         </LinearLayout>
     </LinearLayout>

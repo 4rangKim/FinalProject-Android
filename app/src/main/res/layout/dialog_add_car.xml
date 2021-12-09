@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        tools:ignore="UselessParent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,17 +22,18 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="신규 차량 등록"
+                android:text="@string/add_car_dialog_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_marginBottom="25dp"/>
             <ImageButton
                 android:id="@+id/addCarMenuCloseBtn"
                 android:layout_weight="10"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/close"
-                android:background="#434343"/>
+                android:background="#434343"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,24 +43,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="차량 번호"
+                android:text="@string/add_car_dialog_content_car_number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginBottom="5dp"
-                android:paddingLeft="3dp"/>
+                android:paddingStart="3dp"
+                tools:ignore="RtlSymmetry" />
             <EditText
                 android:id="@+id/newCarNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint=" 차량의 번호를 입력해주세요.  " />
+                android:hint="@string/add_car_dialog_car_number_hint"
+                android:autofillHints="carNum"
+                android:inputType="text" />
             <Button
                 android:id="@+id/addCarBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:text="등록하기"
+                android:text="@string/add_car_dialog_content_add_car_btn"
                 android:textColor="#f7c873"
                 android:layout_margin="25dp"
-                android:onClick="findId"
                 android:background="@drawable/btn1"/>
         </LinearLayout>
     </LinearLayout>

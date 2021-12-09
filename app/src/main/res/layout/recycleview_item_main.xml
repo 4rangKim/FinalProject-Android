@@ -13,16 +13,17 @@
             android:id="@+id/parkingLotImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/paringlot_icon"
+            android:src="@drawable/paring_lot_icon"
             android:background="@drawable/profile"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/string_image_fail"/>
         <!-- Name -->
         <TextView
             android:id="@+id/parkingLotName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주차장 이름"
-            android:layout_marginLeft="20dp"
+            android:text="@string/main_recycle_view_item_parking_lot_name"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"/>
         <!-- State -->
@@ -30,24 +31,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:gravity="right|center">
+            android:gravity="end|center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="사용가능한 자리 :"
-                android:layout_marginRight="10dp"
+                android:gravity="end"
+                android:text="@string/main_recycle_view_item_empty_area_count"
+                android:layout_marginEnd="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:maxLines="1"/>
             <TextView
                 android:id="@+id/parkingLotEmptyState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="빈자리"
+                android:gravity="end"
+                android:text="@string/main_recycle_view_item_empty_area_count_value"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:maxLines="1"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <!-- line -->

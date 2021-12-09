@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,13 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginTop="5dp"
-            android:gravity="right">
+            android:gravity="end">
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:src="@drawable/logo_text"/>
+                android:src="@drawable/logo_text"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="결제 내역"
+            android:text="@string/my_pay_list_activity_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:gravity="center"
             android:layout_marginTop="20dp"/>

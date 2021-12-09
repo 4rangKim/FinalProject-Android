@@ -25,13 +25,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_marginTop="5dp"
-                android:gravity="right">
+                android:gravity="end"
+                tools:ignore="RtlHardcoded">
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/logo_text"/>
+                    android:src="@drawable/logo_text"
+                    android:contentDescription="@string/string_image_fail"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
         <LinearLayout
@@ -42,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="주차장 리스트"
+                android:text="@string/main_activity_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:gravity="center"
                 android:layout_marginTop="20dp"/>

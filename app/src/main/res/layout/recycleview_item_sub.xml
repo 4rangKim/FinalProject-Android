@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -7,7 +8,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        tools:ignore="UselessParent">
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +21,8 @@
                 android:background="@drawable/o_area"
                 android:padding="40dp"
                 android:visibility="invisible"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:contentDescription="@string/string_image_fail">
             </ImageView>
             <ImageView
                 android:id="@+id/areaActivate"
@@ -28,14 +31,14 @@
                 android:background="@drawable/e_area"
                 android:padding="40dp"
                 android:visibility="visible"
-                android:layout_gravity="center">
-            </ImageView>
+                android:layout_gravity="center"
+                android:contentDescription="@string/string_image_fail"/>
         </FrameLayout>
         <TextView
             android:id="@+id/area_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="area_id"
+            android:text="@string/sub_recycle_view_item_area_id"
             android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:layout_margin="40dp"
