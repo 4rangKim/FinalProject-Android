@@ -73,7 +73,7 @@
                 android:id="@+id/point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="@string/main_drawer_header_content_user_point"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
@@ -90,14 +90,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="5dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/main_drawer_header_content_user_point_value_unit"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:gravity="center|end" />
             </LinearLayout>
             <RelativeLayout
@@ -143,7 +142,7 @@
                 android:id="@+id/car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="@string/main_drawer_header_content_user_car"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"

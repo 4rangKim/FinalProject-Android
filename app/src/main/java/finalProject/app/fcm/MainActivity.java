@@ -6,13 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -57,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ParkingVO parkingLot;
     MainRecycleViewAdapter adapter;
     TimerTask timerTask;
+    /* FCM */
+    NotificationManagerCompat notificationManager;
+    String channelId = "channel";
+    String channelName = "Channel_name";
+    int importance = NotificationManager.IMPORTANCE_LOW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String ResultInfo = EntityUtils.toString(resEntity);
         Log.d("main", ResultInfo);
         if(!ResultInfo.equals("null")){
+            adapter.remove();
             try {
                 JSONArray Info = new JSONArray(ResultInfo);
                 for(int i=0;i<Info.length();i++) {
@@ -226,5 +238,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d("main", "onNewIntent 호출됨");
+        if (intent != null) {
+            processIntent(intent);
+        }
+
+        super.onNewIntent(intent);
+    }
+    private void processIntent(Intent intent) {
+        String from = intent.getStringExtra("from");
+        if (from == null) {
+            Log.d("main", "from is null.");
+            return;
+        }
+
+        String title = intent.getStringExtra("title");
+        String body = intent.getStringExtra("body");
+        Log.d("main", "Intent= title: "+title+", body: "+body);
+        String channelId = "channel";
+
+        notificationManager = NotificationManagerCompat.from(MainActivity.this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        Intent intent2 = new Intent(MainActivity.this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 101, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainActivity.this, "channel")
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .setVibrate(new long[]{1000, 1000});
+        notificationManager.notify(0, mBuilder.build());
     }
 }

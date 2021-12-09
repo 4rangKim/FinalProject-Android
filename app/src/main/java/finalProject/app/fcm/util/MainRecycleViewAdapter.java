@@ -42,6 +42,9 @@ public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleView
         items.add(item);
     }
 
+    public void remove(){
+        items.clear();
+    }
     public void setItems(ArrayList<ParkingVO> items) {
         this.items = items;
     }
