@@ -52,7 +52,7 @@ public class MyCarListActivity extends AppCompatActivity {
         pwd = intent.getStringExtra("MemberPwd");
         carNum1 = intent.getStringExtra("MemberCar1");
         carNum2 = "";
-        if(intent.getStringExtra("MemberCar2")!=null){
+        if(!intent.getStringExtra("MemberCar2").equals("null")){
             carNum2 = intent.getStringExtra("MemberCar2");
         }
         Log.d("addCar", id+", "+pwd+", "+carNum1+", "+carNum2);
@@ -62,7 +62,7 @@ public class MyCarListActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         MyCarRecycleViewAdapter adapter = new MyCarRecycleViewAdapter();
-        if(carNum2==null){
+        if(carNum2.equals("")){
             adapter.addItem(new CarVo(carNum1));
         }else {
             adapter.addItem(new CarVo(carNum1));

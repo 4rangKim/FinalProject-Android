@@ -2,6 +2,7 @@ package finalProject.app.fcm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,7 +32,13 @@ public class UserActivity extends AppCompatActivity {
         tel = intent.getStringExtra("MemberTel");
         pointVal = intent.getStringExtra("MemberPoint");
         carNum1 = intent.getStringExtra("MemberCar1");
-        carNum2 = intent.getStringExtra("MemberCar2");
+        if(!intent.getStringExtra("MemberCar2").equals("null")){
+            carNum2 = intent.getStringExtra("MemberCar2");
+            Log.d("user","carNum is not null");
+        }else {
+            carNum2 = "";
+            Log.d("user","carNum is null");
+        }
         userName.setText(name);
         userId.setText(id);
         userPoint.setText(pointVal);
@@ -41,7 +48,7 @@ public class UserActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new UserCarRecycleViewAdapter();
         recyclerView.setAdapter(adapter);
-        if(carNum2==null){
+        if(carNum2.equals("")){
             adapter.addItem(new CarVo(carNum1));
         }else {
             adapter.addItem(new CarVo(carNum1));

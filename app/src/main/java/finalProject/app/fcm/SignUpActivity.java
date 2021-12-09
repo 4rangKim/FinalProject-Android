@@ -2,7 +2,6 @@ package finalProject.app.fcm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -102,8 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }).start();
-            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-            startActivity(intent);
+            finish();
         } else {
             toast("가입 정보를 확인해 주세요.");
         }

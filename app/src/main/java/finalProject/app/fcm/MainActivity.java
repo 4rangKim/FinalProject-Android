@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("MemberPoint",String.valueOf(pointVal));
         intent.putExtra("MemberCar1",carNum1);
         intent.putExtra("MemberCar2",carNum2);
+        Log.d("main","goMyPage : id="+id+", pwd="+pwd+", name="+name+", tel="+tel+", carNum1="+carNum1+", carNum2="+carNum2);
         startActivity(intent);
         timerTask.cancel();
     }
