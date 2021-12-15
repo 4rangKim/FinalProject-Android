@@ -60,8 +60,16 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:gravity="center"
                 android:layout_marginTop="20dp"/>
+            <ImageView
+                android:onClick="detailInfo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/information"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@string/string_image_fail"/>
         </LinearLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

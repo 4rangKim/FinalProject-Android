@@ -10,8 +10,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
 import android.app.NotificationChannel;
@@ -29,27 +29,11 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.NameValuePair;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
-import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import cz.msebera.android.httpclient.util.EntityUtils;
-import finalProject.app.fcm.util.MainRecycleViewAdapter;
-import finalProject.app.fcm.vo.ParkingVO;
+import finalProject.app.fcm.util.FragmentParkingLotList;
+import finalProject.app.fcm.util.FragmentParkingLotMap;
+import finalProject.app.fcm.util.FragmentViewpagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -60,19 +44,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String id,pwd, name, carNum1, carNum2;
     int tel,pointVal;
     Handler handler;
-    ParkingVO parkingLot;
-    MainRecycleViewAdapter adapter;
-    TimerTask timerTask;
     /* FCM */
     NotificationManagerCompat notificationManager;
     String channelId = "channel";
     String channelName = "Channel_name";
     int importance = NotificationManager.IMPORTANCE_LOW;
+    /* ViewPager */
+    ViewPager2 viewPager2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("why", "main 실행");
         /* Navigation Drawer */
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,24 +72,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         nav_HeaderId = navigationView.getHeaderView(0).findViewById(R.id.signInMemberId);
         nav_HeaderPoint = navigationView.getHeaderView(0).findViewById(R.id.pointVal);
-        /* RecycleView */
-        RecyclerView recyclerView = findViewById(R.id.parkingLotList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new MainRecycleViewAdapter();
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new MainRecycleViewAdapter(){
-            @Override
-            public void onItemClick(MainRecycleViewAdapter.ViewHolder holder, View view, int position) {
-                super.onItemClick(holder, view, position);
-                ParkingVO item = adapter.getItem(position);
-                String p_id = item.getP_id();
-                Intent intent = new Intent(MainActivity.this,SubActivity.class);
-                intent.putExtra("p_id", p_id);
-                startActivity(intent);
-                timerTask.cancel();
-            }
-        });
+        /* ViewPager */
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(FragmentParkingLotList.newInstance(0));
+        fragments.add(FragmentParkingLotMap.newInstance(1));
+        viewPager2 = findViewById(R.id.mainViewpager);
+        FragmentViewpagerAdapter mainViewpager = new FragmentViewpagerAdapter(this, fragments);
+        viewPager2.setAdapter(mainViewpager);
+        viewPager2.setUserInputEnabled(false);
         /* Intent */
         Intent intent = getIntent();
         id = intent.getStringExtra("MemberId");
@@ -135,25 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         );
-        /* TimerTask */
-        Timer timer = new Timer(true);
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    ParkingInfoHttp();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                handler.post(() -> adapter.notifyDataSetChanged());
-            }
-            @Override
-            public boolean cancel() {
-                Log.d("main", "ParkingInfo TimerTask is cancel");
-                return super.cancel();
-            }
-        };
-        timer.schedule(timerTask, 0,5000);
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -161,22 +117,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, SignInActivity.class);
             setResult(RESULT_OK, intent);
             finish();
-            timerTask.cancel();
-
         }else if(item.getItemId()==R.id.payList){
             Intent intent2 = new Intent(MainActivity.this, PayListActivity.class);
             intent2.putExtra("MemberId",id);
             startActivity(intent2);
             Log.d("main","goPayList");
-            timerTask.cancel();
         }else if(item.getItemId()==R.id.payResult){
             Intent intent3 = new Intent(MainActivity.this, PayResultActivity.class);
             intent3.putExtra("MemberId",id);
             startActivity(intent3);
-            timerTask.cancel();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+    public void mainChange(View v){
+        TextView text = findViewById(R.id.mainChangeText);
+        if(viewPager2.getCurrentItem()==0){
+            viewPager2.setCurrentItem(1);
+            handler.post(() -> text.setText("목록 보기"));
+        }else if(viewPager2.getCurrentItem()==1){
+            viewPager2.setCurrentItem(0);
+            handler.post(() -> text.setText("지도 보기"));
+        }
     }
     public void goMyPage(View v){
         Intent intent = new Intent(MainActivity.this, UserActivity.class);
@@ -189,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("MemberCar2",carNum2);
         Log.d("main","goMyPage : id="+id+", pwd="+pwd+", name="+name+", tel="+tel+", carNum1="+carNum1+", carNum2="+carNum2);
         startActivity(intent);
-        timerTask.cancel();
     }
     public void goCharge(View v){
         Intent intent = new Intent(MainActivity.this, ChargeActivity.class);
@@ -197,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("MemberPoint", String.valueOf(pointVal));
         goCharge_Launcher.launch(intent);
         drawerLayout.closeDrawer(GravityCompat.START);
-        timerTask.cancel();
     }
     public void myCarMenu(View v){
         Intent intent = new Intent(MainActivity.this, MyCarListActivity.class);
@@ -208,37 +168,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("main","myCarMenu intent:"+id+", "+pwd+", "+carNum1+", "+carNum2);
         startActivity(intent);
         drawerLayout.closeDrawer(GravityCompat.START);
-        timerTask.cancel();
     }
-    public void ParkingInfoHttp() throws IOException {
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost("http://192.168.0.123:80/Finalweb/parealist.mc");
-        ArrayList<NameValuePair> MemberInfo = new ArrayList<>();
-        MemberInfo.add(new BasicNameValuePair("id", URLDecoder.decode(id, "UTF-8")));
-        post.setEntity(new UrlEncodedFormEntity(MemberInfo, "UTF-8"));
-        HttpResponse response = client.execute(post);
-        Log.d("main", "response StatusCode:" + response.getStatusLine().getStatusCode()); // response StatusCode: 200
-        HttpEntity resEntity = response.getEntity();
-        String ResultInfo = EntityUtils.toString(resEntity);
-        Log.d("main", ResultInfo);
-        if(!ResultInfo.equals("null")){
-            adapter.remove();
-            try {
-                JSONArray Info = new JSONArray(ResultInfo);
-                for(int i=0;i<Info.length();i++) {
-                    JSONObject parkingListInfo = Info.getJSONObject(i);
-                    String p_id = parkingListInfo.getString("p_id");
-                    String count = parkingListInfo.getString("count");
-                    Log.d("main", p_id + ", " + count);
-                    parkingLot = new ParkingVO(p_id, Integer.parseInt(count));
-                    adapter.addItem(parkingLot);
-                    Log.d("main", parkingLot.toString());
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         Log.d("main", "onNewIntent 호출됨");

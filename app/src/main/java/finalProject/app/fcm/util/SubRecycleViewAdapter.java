@@ -37,7 +37,9 @@ public class SubRecycleViewAdapter extends RecyclerView.Adapter<SubRecycleViewAd
         return items.size();
     }
     public void removeItem(){
-        items.clear();
+        if(items.size()>0){
+            items.clear();
+        }
     }
     public void addItem(P_AreaVO item) {
         items.add(item);

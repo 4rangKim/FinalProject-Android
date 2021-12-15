@@ -71,6 +71,9 @@
     <string name="add_car_fail_dialog_title">신규 차량 등록 실패</string>
     <string name="add_car_fail_dialog_content_string">차량은 2개까지 등록이 가능합니다.</string>
     <string name="add_car_fail_dialog_content_ok_btn">확인</string>
+    <string name="pay_result_dialog_title">요금 조회 실패</string>
+    <string name="pay_result_dialog_content">요금 정산이 필요한 \n 이용 내역이 없습니다.</string>
+    <string name="sub_dialog_detail_info_parking_lot_name">A</string>
     <string name="main_drawer_header_content_user_name">로그인</string>
     <string name="main_drawer_header_content_user_name_title">님</string>
     <string name="main_drawer_header_content_user_point">내 포인트 :</string>
@@ -82,8 +85,13 @@
     <string name="main_recycle_view_item_parking_lot_name">주차장 이름</string>
     <string name="main_recycle_view_item_empty_area_count">사용가능한 자리 :</string>
     <string name="main_recycle_view_item_empty_area_count_value">빈자리</string>
+    <string name="main_activity_content_Viewpager_MapView">지도 보기</string>
+    <string name="main_activity_content_Viewpager_ListView">목록 보기</string>
     <string name="my_car_recycle_view_item_car_number">차량 번호 :</string>
     <string name="my_car_recycle_view_item_car_number_value">num</string>
+    <string name="my_pay_list_activity_content_filtering_list_title">날짜 검색</string>
+    <string name="my_pay_list_activity_content_filtering_list_date_hint">결제일</string>
+    <string name="my_pay_list_activity_content_filtering_list_date_between">~</string>
     <string name="my_pay_list_recycle_view_item_car_number">차 번호</string>
     <string name="my_pay_list_recycle_view_item_amount_val">결제 금액</string>
     <string name="my_pay_list_recycle_view_item_amount_val_unit">원</string>
@@ -92,4 +100,19 @@
     <string name="my_pay_list_recycle_view_item_out_time">출차 시간</string>
     <string name="sub_recycle_view_item_area_id">area_id</string>
     <string name="user_recycle_view_item_car_number">carNum</string>
+    <string name="sub_dialog_detail_info_title">주차장</string>
+    <string name="sub_dialog_detail_info_address">서울특별시 강남구 삼성로</string>
+    <string name="sub_dialog_detail_info_number">1234-5678-9876</string>
+    <string name="sub_dialog_detail_info_content_fee">시간 요금</string>
+    <string name="sub_dialog_detail_info_content_fee_default">기본 요금</string>
+    <string name="sub_dialog_detail_info_content_fee_default_values">30분에 3000원</string>
+    <string name="sub_dialog_detail_info_content_fee_add">추가 요금</string>
+    <string name="sub_dialog_detail_info_content_fee_add_values">5분에 500원</string>
+    <string name="sub_dialog_detail_info_content_open_time">운영 시간</string>
+    <string name="sub_dialog_detail_info_content_open_time_weekday">평일</string>
+    <string name="sub_dialog_detail_info_content_open_time_weekday_values">09:00 ~ 11:00</string>
+    <string name="sub_dialog_detail_info_content_open_time_weekend">주말</string>
+    <string name="sub_dialog_detail_info_content_open_time_weekend_values">00:00 ~ 24:00</string>
+    <string name="sub_dialog_detail_info_content_open_time_holiday">공휴일</string>
+    <string name="sub_dialog_detail_info_content_open_time_holiday_values">00:00 ~ 24:00</string>
 </resources>

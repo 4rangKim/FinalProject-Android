@@ -5,12 +5,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -41,18 +44,26 @@ public class SubActivity extends AppCompatActivity {
     Handler handler;
     P_AreaVO p_areaList;
     SubRecycleViewAdapter adapter;
-    TextView parkingLotName;
+    TextView parkingLotName, detailInfoName;
+    Dialog detailInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
+        Log.d("why", "subActivity 실행");
         handler = new Handler(Looper.myLooper());
         parkingLotName = findViewById(R.id.areaStateParkingLotName);
         /* Intent */
         Intent intent = getIntent();
         p_id = intent.getStringExtra("p_id");
         parkingLotName.setText(p_id);
+        /* RecycleView */
+        RecyclerView recyclerView = findViewById(R.id.areaStateList);
+        LinearLayoutManager layoutManager = new GridLayoutManager(this,3);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new SubRecycleViewAdapter();
+        recyclerView.setAdapter(adapter);
         /* TimerTask */
         Timer timer = new Timer(true);
         timerTask = new TimerTask() {
@@ -71,16 +82,23 @@ public class SubActivity extends AppCompatActivity {
             }
         };
         timer.schedule(timerTask, 0,10000);
-        /* RecycleView */
-        RecyclerView recyclerView = findViewById(R.id.areaStateList);
-        LinearLayoutManager layoutManager = new GridLayoutManager(this,3);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new SubRecycleViewAdapter();
-        recyclerView.setAdapter(adapter);
+        /* Dialog */
+        detailInfo = new Dialog(SubActivity.this);
+        detailInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        detailInfo.setContentView(R.layout.dialog_sub_detail_info);
+        detailInfoName = detailInfo.findViewById(R.id.detailInfoName);
+
+    }
+    public void detailInfo(View v){
+        detailInfoName.setText(p_id);
+        detailInfo.show();
+        ImageButton close = detailInfo.findViewById(R.id.detailPageClose);
+        close.setOnClickListener(view -> detailInfo.dismiss());
     }
     public void goMain(View v){
         timerTask.cancel();
         finish();
+        Log.d("why", "sub finish");
     }
     public void PAreaHttp(String p_id) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();

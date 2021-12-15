@@ -71,9 +71,8 @@ public class MainRecycleViewAdapter extends RecyclerView.Adapter<MainRecycleView
 
             name = itemView.findViewById(R.id.parkingLotName);
             empty = itemView.findViewById(R.id.parkingLotEmptyState);
-            String nameVal = name.getText().toString();
             itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition() ;
+                int pos = getAbsoluteAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     if(listener != null){
                         listener.onItemClick(ViewHolder.this, v, pos);

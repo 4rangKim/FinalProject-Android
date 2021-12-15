@@ -2,12 +2,15 @@ package finalProject.app.fcm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -39,6 +42,7 @@ public class PayResultActivity extends AppCompatActivity {
     String id, inTimeVal, outTimeVal, costVal;
     PayListVO paymentResult;
     Handler handler;
+    Dialog payResultFail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,10 @@ public class PayResultActivity extends AppCompatActivity {
             }
         };
         timer.schedule(timerTask, 0,5000);
+        /* Dialog */
+        payResultFail = new Dialog(PayResultActivity.this);
+        payResultFail.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        payResultFail.setContentView(R.layout.dialog_pay_result_fail);
     }
     public void goMain(View v){
         finish();
@@ -92,7 +100,7 @@ public class PayResultActivity extends AppCompatActivity {
         HttpEntity resEntity = response.getEntity();
         String ResultInfo = EntityUtils.toString(resEntity);
         Log.d("payNow", ResultInfo);
-        if(!ResultInfo.equals("null")){
+        if(!ResultInfo.equals("")){
             Log.d("payNow", ResultInfo + "");
             try {
                 JSONArray Info = new JSONArray(ResultInfo);
@@ -110,6 +118,17 @@ public class PayResultActivity extends AppCompatActivity {
                 Log.d("payNow",paymentResult.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        }else {
+            if(!PayResultActivity.this.isFinishing()){
+                handler.post(() -> {
+                    payResultFail.show();
+                    Button ok = payResultFail.findViewById(R.id.payResultFailOk);
+                    ok.setOnClickListener(view -> {
+                        payResultFail.dismiss();
+                        finish();
+                    });
+                });
             }
         }
     }

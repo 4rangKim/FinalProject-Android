@@ -3,9 +3,6 @@ package finalProject.app.fcm.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * 데이터 저장 및 로드 클래스
- */
 public class PreferenceManager {
     public static final String PREFERENCES_NAME = "rebuild_preference";
     private static final String DEFAULT_VALUE_STRING = "";
@@ -17,140 +14,66 @@ public class PreferenceManager {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
     
-    /**
-     * String 값 저장
-     * @param context
-     * @param key
-     * @param value
-     */
     public static void setString(Context context, String key, String value) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
-    /**
-     * boolean 값 저장
-     * @param context
-     * @param key
-     * @param value
-     */
     public static void setBoolean(Context context, String key, boolean value) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
-    /**
-     * int 값 저장
-     * @param context
-     * @param key
-     * @param value
-     */
     public static void setInt(Context context, String key, int value) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
-    /**
-     * long 값 저장
-     * @param context
-     * @param key
-     * @param value
-     */
     public static void setLong(Context context, String key, long value) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(key, value);
-        editor.commit();
+        editor.apply();
     }
-    /**
-     * float 값 저장
-     * @param context
-     * @param key
-     * @param value
-     */
     public static void setFloat(Context context, String key, float value) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putFloat(key, value);
-        editor.commit();
+        editor.apply();
     }
-    /**
-     * String 값 로드
-     * @param context
-     * @param key
-     * @return
-     */
     public static String getString(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
-        String value = prefs.getString(key, DEFAULT_VALUE_STRING);
-        return value;
+        return prefs.getString(key, DEFAULT_VALUE_STRING);
     }
-    /**
-     * boolean 값 로드
-     * @param context
-     * @param key
-     * @return
-     */
     public static boolean getBoolean(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
-        boolean value = prefs.getBoolean(key, DEFAULT_VALUE_BOOLEAN);
-        return value;
+        return prefs.getBoolean(key, DEFAULT_VALUE_BOOLEAN);
     }
-    /**
-     * int 값 로드
-     * @param context
-     * @param key
-     * @return
-     */
     public static int getInt(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
-        int value = prefs.getInt(key, DEFAULT_VALUE_INT);
-        return value;
+        return prefs.getInt(key, DEFAULT_VALUE_INT);
     }
-    /**
-     * long 값 로드
-     * @param context
-     * @param key
-     * @return
-     */
     public static long getLong(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
-        long value = prefs.getLong(key, DEFAULT_VALUE_LONG);
-        return value;
+        return prefs.getLong(key, DEFAULT_VALUE_LONG);
     }
-    /**
-     * float 값 로드
-     * @param context
-     * @param key
-     * @return
-     */
     public static float getFloat(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
-        float value = prefs.getFloat(key, DEFAULT_VALUE_FLOAT);
-        return value;
+        return prefs.getFloat(key, DEFAULT_VALUE_FLOAT);
     }
-    /**
-     * 키 값 삭제
-     * @param context
-     * @param key
-     */
     public static void removeKey(Context context, String key) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor edit = prefs.edit();
         edit.remove(key);
-        edit.commit();
+        edit.apply();
     }
-    /**
-     * 모든 저장 데이터 삭제
-     * @param context
-     */
     public static void clear(Context context) {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor edit = prefs.edit();
         edit.clear();
-        edit.commit();
+        edit.apply();
     }
 }
